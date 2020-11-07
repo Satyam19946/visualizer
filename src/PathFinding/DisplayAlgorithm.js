@@ -9,7 +9,7 @@ class DisplayAlgorithm extends Component {
         super(props);
 
         this.state = {
-            numberOfRows: 10,
+            numberOfRows: 15,
             numberOfColumns: 20,
             graph: [],
             node: new Node(1,1),
