@@ -1,13 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import Pathfinder from "./PathFinding/Pathfinder"
-import DisplayAlgorithm from "./PathFinding/DisplayAlgorithm"
+import SearchGrid from "./PathFinding/SearchGrid"
+
 
 function App() {
   return (
     <div>
       <Pathfinder />
-      <DisplayAlgorithm />
+      <SearchGrid />
     </div>
   );
 }

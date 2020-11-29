@@ -1,6 +1,6 @@
 // Each node is a point in the graph
 class Node {
-    constructor(x,y,color='#000000'){
+    constructor(x,y,color="white"){
         this.x = x;
         this.y = y;
         this.color = color;
