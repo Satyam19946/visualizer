@@ -60,46 +60,68 @@ class Pathfinder extends Component {
     changeToDijkstra() {
         this.setState({
             algorithm: "Dijkstra"
-        });
+        }, () => this.reset()
+        );
     }
 
     changeToBfs() {
         this.setState({
             algorithm: "BFS"
-        });
+        }, () => this.reset()
+        );
     }
 
     changeToDfs() {
         this.setState({
             algorithm: "DFS",
-        });
+        }, () => this.reset()
+        );
     }
 
     changeToAstar(){
         this.setState({
             algorithm: "A*",
-        });
+        }, ()=> this.reset()
+        );
     }
     
     search(){
         if ( this.state.searching ){
-            var [newGrid, newStackOfNodes, newVisited, newNodesTouched] = this.searchAlgos.dfsStep(
-                this.grid.state,
-                this.state.stackOfNodes,
-                this.state.visited,
-                this.state.nodesTouched            
-            );
+            var newGrid, newStackOfNodes, newVisited, newNodesTouched, continueSearch;
+            if ( this.state.algorithm === 'DFS' ){
+                [newGrid, newStackOfNodes, newVisited, newNodesTouched] = this.searchAlgos.dfsStep(
+                    this.grid.state,
+                    this.state.stackOfNodes,
+                    this.state.visited,
+                    this.state.nodesTouched            
+                );    
+            }
+            if ( this.state.algorithm === 'BFS' ){
+                [newGrid, newStackOfNodes, newVisited, newNodesTouched] = this.searchAlgos.bfsStep(
+                    this.grid.state,
+                    this.state.stackOfNodes,
+                    this.state.visited,
+                    this.state.nodesTouched            
+                );
+            }
+            if ( newGrid.currentNode.x === this.grid.state.endNode.x && newGrid.currentNode.y === this.grid.state.y ){
+                continueSearch = false;
+            } else {
+                continueSearch = true;
+            }
+
             this.setState({
                 stackOfNodes: newStackOfNodes,
                 visited: newVisited,
                 nodesTouched: newNodesTouched,
+                searching: continueSearch,
             });
             this.grid.update(newGrid);
         }
     }
 
     startInterval(){
-        this.intervalID = window.setInterval(this.search, 100);
+        this.intervalID = window.setInterval(this.search, 10);
     }
 
     stopInterval(){
@@ -121,13 +143,12 @@ class Pathfinder extends Component {
     }
 
     render(){
-        let stopSearchButton;
+        let stopSearchButton, startSearchButton;
         if ( this.state.searching ){
             stopSearchButton = <button onClick={this.stopSearch}>Stop Search</button>
         } else {
             stopSearchButton = <button onClick={this.stopSearch} disabled>Stop Search</button>
         }
-        let startSearchButton;
         if ( this.state.searching ){
             startSearchButton = <button onClick={this.startSearch} disabled>Start Search</button>
         } else {
@@ -149,6 +170,7 @@ class Pathfinder extends Component {
                 <button onClick={this.reset}>Reset The Board</button>
                 {startSearchButton}
                 {stopSearchButton}
+                <p> Current Node = ({this.grid.state.currentNode.x+1},{this.grid.state.currentNode.y+1}) Destination Node = ({this.grid.state.endNode.x+1},{this.grid.state.endNode.y+1}) </p>
                 <div>
                     <div className={styles.grid}>{gridRender}</div>
                 </div>
