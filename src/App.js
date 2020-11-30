@@ -1,13 +1,11 @@
 import './App.css';
-import Pathfinder from "./PathFinding/Pathfinder"
-import SearchGrid from "./PathFinding/SearchGrid"
+import PathFinder from "./PathFinding/Pathfinder.js"
 
 
 function App() {
   return (
     <div>
-      <Pathfinder />
-      <SearchGrid />
+      <PathFinder/>
     </div>
   );
 }
