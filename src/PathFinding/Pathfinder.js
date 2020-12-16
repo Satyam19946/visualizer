@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Algorithms from './Algorithms.js';
 import SearchGrid from './SearchGrid.js';
-import styles from "./SearchGrid.module.css"
+import styles from "./SearchGrid.module.css";
+import PriorityQueue from "./PriorityQueue.js";
 
 
 // Pathfinder tells which algorithm we are using.
@@ -13,9 +14,10 @@ class Pathfinder extends Component {
         this.state = {
             algorithm: "DFS",
             searching: false,
-            stackOfNodes: [],
+            arrayOfNodes: [],
             visited: [],
             nodesTouched: [],
+            pqOfNodes: new PriorityQueue(),
         };
 
         this.grid = new SearchGrid();
@@ -37,15 +39,30 @@ class Pathfinder extends Component {
     reset(){
         this.setState({
             searching: false,
-            stackOfNodes: [],
+            arrayOfNodes: [],
             visited: [],
             nodesTouched: [],
+            pqOfNodes: new PriorityQueue(),
         });
         
         let copyGrid = this.grid.state;
         for(let i = 0; i < copyGrid.numberOfRows; i++ ){
             for ( let j = 0; j < copyGrid.numberOfColumns; j++ ){
                 this.grid.state.graph[i][j].color = 'white';
+                if ( this.state.algorithm === "Dijkstra" || this.state.algorithm === "A*" ){
+                    var weightToAssign = Math.random();
+                    if ( weightToAssign > 0.9 ){
+                        this.grid.state.graph[i][j].weight = Infinity;
+                        this.grid.state.graph[i][j].color = "black";
+                    } else if ( weightToAssign > 0.6 ) {
+                        this.grid.state.graph[i][j].weight = 100;
+                        this.grid.state.graph[i][j].color = "aqua";
+                    } else {
+                        this.grid.state.graph[i][j].weight = 1;
+                    }
+                } else {
+                    this.grid.state.graph[i][j].weight = 1;
+                }
             }
         }
 
@@ -85,43 +102,90 @@ class Pathfinder extends Component {
         );
     }
     
+    tracePathFromStartToEnd(grid){
+        var workingNode = grid.endNode;
+        while ( workingNode.x !== grid.startNode.x || workingNode.y !== grid.startNode.y ){
+            workingNode.color = "yellow";
+            workingNode = workingNode.parent;           
+        }
+        workingNode.color = "yellow";
+        return grid;
+    }
+
     search(){
         if ( this.state.searching ){
-            var newGrid, newStackOfNodes, newVisited, newNodesTouched, continueSearch;
+            var newGrid, newarrayOfNodes, newVisited, newNodesTouched, continueSearch, newPqOfNodes;
             if ( this.state.algorithm === 'DFS' ){
-                [newGrid, newStackOfNodes, newVisited, newNodesTouched] = this.searchAlgos.dfsStep(
+                [newGrid, newarrayOfNodes, newVisited, newNodesTouched] = this.searchAlgos.dfsStep(
                     this.grid.state,
-                    this.state.stackOfNodes,
-                    this.state.visited,
-                    this.state.nodesTouched            
-                );    
-            }
-            if ( this.state.algorithm === 'BFS' ){
-                [newGrid, newStackOfNodes, newVisited, newNodesTouched] = this.searchAlgos.bfsStep(
-                    this.grid.state,
-                    this.state.stackOfNodes,
+                    this.state.arrayOfNodes,
                     this.state.visited,
                     this.state.nodesTouched            
                 );
+                
+                this.setState({
+                    arrayOfNodes: newarrayOfNodes,
+                    visited: newVisited,
+                    nodesTouched: newNodesTouched,
+                });
+
+            } else if ( this.state.algorithm === 'BFS' ){
+                [newGrid, newarrayOfNodes, newVisited, newNodesTouched] = this.searchAlgos.bfsStep(
+                    this.grid.state,
+                    this.state.arrayOfNodes,
+                    this.state.visited,
+                    this.state.nodesTouched            
+                );
+
+                this.setState({
+                    arrayOfNodes: newarrayOfNodes,
+                    visited: newVisited,
+                    nodesTouched: newNodesTouched,
+                });
+
+            } else if ( this.state.algorithm === "A*" ){
+                [newGrid, newPqOfNodes, newVisited, newNodesTouched] = this.searchAlgos.aStarStep(
+                    this.grid.state,
+                    this.state.pqOfNodes,
+                    this.state.visited,
+                    this.state.nodesTouched            
+                );
+
+                this.setState({
+                    pqOfNodes: newPqOfNodes,
+                    visited: newVisited,
+                    nodesTouched: newNodesTouched,
+                });
+            } else if ( this.state.algorithm === "Dijkstra" ){
+                [newGrid, newPqOfNodes, newVisited, newNodesTouched] = this.searchAlgos.dijkstraStep(
+                    this.grid.state,
+                    this.state.pqOfNodes,
+                    this.state.visited,
+                    this.state.nodesTouched            
+                );
+
+                this.setState({
+                    pqOfNodes: newPqOfNodes,
+                    visited: newVisited,
+                    nodesTouched: newNodesTouched,
+                });
             }
-            if ( newGrid.currentNode.x === this.grid.state.endNode.x && newGrid.currentNode.y === this.grid.state.y ){
+            if ( newGrid.currentNode.x === this.grid.state.endNode.x && newGrid.currentNode.y === this.grid.state.endNode.y ){
                 continueSearch = false;
+                newGrid = this.tracePathFromStartToEnd(newGrid);
             } else {
                 continueSearch = true;
             }
-
+            
             this.setState({
-                stackOfNodes: newStackOfNodes,
-                visited: newVisited,
-                nodesTouched: newNodesTouched,
                 searching: continueSearch,
-            });
+            })
             this.grid.update(newGrid);
         }
     }
 
     startInterval(){
-        this.intervalID = window.setInterval(this.search, 10);
+        this.intervalID = window.setInterval(this.search, 1);
     }
 
     stopInterval(){
@@ -156,10 +220,12 @@ class Pathfinder extends Component {
         }
         const gridRender = this.grid.state.graph.map(
             i => i.map(
-            j => <div key={j.x*this.grid.state.numberOfColumns + j.y} style={{backgroundColor: j.color}} className={styles.Node}>        
+                j => 
+                <div key={j.x*this.grid.state.numberOfColumns + j.y} style={{backgroundColor: j.color}} className={styles.Node}>
                 </div>
             )
         );
+        
         return (
             <div>
                 <p>Current Algorithm = {this.state.algorithm}</p>

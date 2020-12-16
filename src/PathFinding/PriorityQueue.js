@@ -28,12 +28,6 @@ class PriorityQueue {
 
     // O(n) insertion (try doing with tree and maybe reach O(log n))
     push(element){
-        try {
-            if ( element.length < 1) throw "Expected element to be of form [data, weight]"; 
-        }
-        catch(err) {
-            return err;
-        }
         var pushed = false;
 
         for ( var i = 0; i < this._heap.length && !pushed; i++ ){
@@ -59,6 +53,12 @@ class PriorityQueue {
 
     empty(){
         this._heap = [];
+    }
+
+    forEachNode(callback){
+        for ( var i = 0; i < this.size(); i++ ){
+            callback(this._heap[i][0]);
+        }
     }
 };
 

@@ -3,13 +3,14 @@
     size: auto;
     padding: 1em;
     grid-template-rows: repeat(25, 30px);
-    grid-template-columns: repeat(50, 30px);
+    grid-template-columns: repeat(25, 30px);
 }
 
 
 .Node {
     border-style: solid;
     border-color: black;
+    text-align: center;
     width: 30px;
     height: 30px;
 }
