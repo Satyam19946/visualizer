@@ -1,10 +1,11 @@
 // Each node is a point in the graph
 class Node {
-    constructor(x,y,color="white"){
+    constructor(x,y,color="white", weight=1){
         this.x = x;
         this.y = y;
         this.color = color;
         this.parent = null;
+        this.weight = 1;
     }
 
     getX(){

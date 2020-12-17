@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import Node from "./Node.js"
+import Node from "./Node.js";
 
 
 // This class contains the graph array which is manipulated by
@@ -12,8 +12,8 @@ class SearchGrid extends Component {
         super(props);
 
         this.state = {
-            numberOfRows: 25,
-            numberOfColumns: 50,
+            numberOfRows: 20,
+            numberOfColumns: 45,
             graph: [[]],
             startNode: new Node(0,0, 'yellow'),
             currentNode: new Node(0,0, 'green'),
