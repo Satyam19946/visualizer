@@ -11,7 +11,7 @@ const HIGH_WEIGHTED_NODES_COLOR = "gray";
 const LOW_WEIGHTED_NODES_COLOR = "lightgray";
 const UNPASSABLE_NODES_COLOR = "black";
 const NO_WEIGHT_NODES_COLOR = "white";
-const legend = "Black Nodes cannot be passed and act as blockers. Darker nodes are high weighted while lighter are low weighted. 'Reset the board' randomly assigns each node to either be weighted, unpassable, or normal."
+const legend = "Black Nodes cannot be passed and act as blockers. Darker nodes are high weighted while lighter are low weighted. 'Randomize The Maze' randomly assigns each the weight to each node in the grid."
 
 
 // Pathfinder tells which algorithm we are using.
@@ -244,7 +244,7 @@ class Pathfinder extends Component {
     }
 
     startInterval(){
-        this.intervalID = window.setInterval(this.search, 1);
+        this.intervalID = window.setInterval(this.search, 10);
     }
 
     stopInterval(){
@@ -287,7 +287,6 @@ class Pathfinder extends Component {
         
         return (
             <div>
-                <div className={styles.Description}>{this.description}</div>
                 <button onClick={this.changeToDijkstra} disabled={this.state.algorithm === "Dijkstra"}>Dijkstra</button>
                 <button onClick={this.changeToBfs} disabled={this.state.algorithm === "BFS"}>BFS</button>
                 <button onClick={this.changeToDfs} disabled={this.state.algorithm === "DFS"}>DFS</button>
@@ -297,6 +296,7 @@ class Pathfinder extends Component {
                 {startSearchButton}
                 {stopSearchButton}
                 <button><a href="https://github.com/satyam19946/visualizer">Github link</a></button>
+                <div className={styles.Description}>{this.description}</div>
                 <br />
                 {legend}
                 <br />
