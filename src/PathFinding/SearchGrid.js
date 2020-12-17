@@ -12,8 +12,8 @@ class SearchGrid extends Component {
         super(props);
 
         this.state = {
-            numberOfRows: 25,
-            numberOfColumns: 25,
+            numberOfRows: 20,
+            numberOfColumns: 45,
             graph: [[]],
             startNode: new Node(0,0, 'yellow'),
             currentNode: new Node(0,0, 'green'),

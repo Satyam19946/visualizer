@@ -12,7 +12,7 @@ class Algorithms extends Component{
         item.color = 'blue';
     }
     
-    dfsStep(grid, arrayOfNodes, visited, nodesTouched){
+    dfsStep(grid, arrayOfNodes, visited, nodesTouched, currentIterations){
         let destNode = grid.endNode;
         let currNode = grid.currentNode;
 
@@ -20,7 +20,8 @@ class Algorithms extends Component{
 
         if ( currNode.x === destNode.x && currNode.y === destNode.y ){
             grid.endNode.color = 'pink';
-            return [grid, arrayOfNodes, visited, nodesTouched];
+            console.log("Node found");
+            return [grid, arrayOfNodes, visited, nodesTouched, currentIterations+1];
         }
 
         let neighbors = [];
@@ -31,11 +32,9 @@ class Algorithms extends Component{
         neighbors.push([currNode.x, currNode.y-1]);
         for ( let i = 0; i < neighbors.length; i++ ){
             let check = neighbors[i];
-            console.log(check);
             if ( check[0] >= 0 && check[0] < grid.numberOfRows && check[1] >= 0 && check[1] < grid.numberOfColumns ){
-                if ( nodesTouched.indexOf(check[0]*grid.numberOfColumns + check[1]) === -1 ){
+                if ( nodesTouched.indexOf(check[0]*grid.numberOfColumns + check[1]) === -1 && grid.graph[check[0]][check[1]].weight !== Infinity){
                     let nodeToPush = grid.graph[check[0]][check[1]];
-                    console.log("This node added is ", nodeToPush);
                     nodeToPush.parent = currNode;
                     arrayOfNodes.push(nodeToPush);
                     nodesTouched.push(check[0]*grid.numberOfColumns + check[1]);
@@ -50,10 +49,10 @@ class Algorithms extends Component{
             grid.currentNode.color = 'green';
         }
 
-        return [grid, arrayOfNodes, visited, nodesTouched];
+        return [grid, arrayOfNodes, visited, nodesTouched, currentIterations+1];
     }
 
-    bfsStep(grid, arrayOfNodes, visited, nodesTouched){
+    bfsStep(grid, arrayOfNodes, visited, nodesTouched, currentIterations){
         let destNode = grid.endNode;
         let currNode = grid.currentNode;
 
@@ -61,7 +60,7 @@ class Algorithms extends Component{
 
         if ( currNode.x === destNode.x && currNode.y === destNode.y ){
             grid.endNode.color = 'pink';
-            return [grid, arrayOfNodes, visited, nodesTouched];
+            return [grid, arrayOfNodes, visited, nodesTouched, currentIterations+1];
         }
 
         let neighbors = [];
@@ -72,11 +71,9 @@ class Algorithms extends Component{
         neighbors.push([currNode.x, currNode.y-1]);
         for ( let i = 0; i < neighbors.length; i++ ){
             let check = neighbors[i];
-            console.log(check);
             if ( check[0] >= 0 && check[0] < grid.numberOfRows && check[1] >= 0 && check[1] < grid.numberOfColumns ){
-                if ( nodesTouched.indexOf(check[0]*grid.numberOfColumns + check[1]) === -1 ){
+                if ( nodesTouched.indexOf(check[0]*grid.numberOfColumns + check[1]) === -1 && grid.graph[check[0]][check[1]].weight !== Infinity){
                     let nodeToPush = grid.graph[check[0]][check[1]];
-                    console.log("This node added is ", nodeToPush);
                     nodeToPush.parent = currNode;
                     arrayOfNodes.push(nodeToPush);
                     nodesTouched.push(check[0]*grid.numberOfColumns + check[1]);
@@ -91,10 +88,10 @@ class Algorithms extends Component{
             grid.currentNode.color = 'green';
         }
 
-        return [grid, arrayOfNodes, visited, nodesTouched];
+        return [grid, arrayOfNodes, visited, nodesTouched, currentIterations+1];
     }
 
-    aStarStep(grid, pqOfNodes, visited, nodesTouched){
+    aStarStep(grid, pqOfNodes, visited, nodesTouched, currentIterations){
         let destNode = grid.endNode;
         let currNode = grid.currentNode;
         let currentNodeWeight = 1;
@@ -107,7 +104,7 @@ class Algorithms extends Component{
 
         if ( currNode.x === destNode.x && currNode.y === destNode.y ){
             grid.endNode.color = 'pink';
-            return [grid, pqOfNodes, visited, nodesTouched];
+            return [grid, pqOfNodes, visited, nodesTouched, currentIterations+1];
         }
 
         let neighbors = [];
@@ -121,9 +118,8 @@ class Algorithms extends Component{
             if ( check[0] >= 0 && check[0] < grid.numberOfRows && check[1] >= 0 && check[1] < grid.numberOfColumns ){
                 if ( nodesTouched.indexOf(check[0]*grid.numberOfColumns + check[1]) === -1 && grid.graph[check[0]][check[1]].weight !== Infinity ){
                     let nodeToPush = grid.graph[check[0]][check[1]];
-                    // console.log("This node added is ", nodeToPush);
                     nodeToPush.parent = currNode;
-                    var weightToDest = Math.pow(nodeToPush.x - destNode.x,2) + Math.pow(nodeToPush.y - destNode.y,2);
+                    var weightToDest = Math.abs(nodeToPush.x - destNode.x) + Math.abs(nodeToPush.y - destNode.y);
                     pqOfNodes.push([nodeToPush, currentNodeWeight+nodeToPush.weight+weightToDest]);
                     nodesTouched.push(check[0]*grid.numberOfColumns + check[1]);
                 }
@@ -138,11 +134,11 @@ class Algorithms extends Component{
             grid.currentNode.color = 'green';
         }
 
-        return [grid, pqOfNodes, visited, nodesTouched];
+        return [grid, pqOfNodes, visited, nodesTouched, currentIterations+1];
     }
     
     // Only difference between A* and Dijkstra is that there is no weightToDestination (heuristics) included.
-    dijkstraStep(grid, pqOfNodes, visited, nodesTouched){
+    dijkstraStep(grid, pqOfNodes, visited, nodesTouched, currentIterations){
         let destNode = grid.endNode;
         let currNode = grid.currentNode;
         let currentNodeWeight = 1;
@@ -155,7 +151,7 @@ class Algorithms extends Component{
 
         if ( currNode.x === destNode.x && currNode.y === destNode.y ){
             grid.endNode.color = 'pink';
-            return [grid, pqOfNodes, visited, nodesTouched];
+            return [grid, pqOfNodes, visited, nodesTouched, currentIterations+1];
         }
 
         let neighbors = [];
@@ -169,7 +165,6 @@ class Algorithms extends Component{
             if ( check[0] >= 0 && check[0] < grid.numberOfRows && check[1] >= 0 && check[1] < grid.numberOfColumns ){
                 if ( nodesTouched.indexOf(check[0]*grid.numberOfColumns + check[1]) === -1 && grid.graph[check[0]][check[1]].weight !== Infinity ){
                     let nodeToPush = grid.graph[check[0]][check[1]];
-                    console.log("This node added is ", nodeToPush.weight);
                     nodeToPush.parent = currNode;
                     pqOfNodes.push([nodeToPush, currentNodeWeight+nodeToPush.weight]);
                     nodesTouched.push(check[0]*grid.numberOfColumns + check[1]);
@@ -185,7 +180,7 @@ class Algorithms extends Component{
             grid.currentNode.color = 'green';
         }
 
-        return [grid, pqOfNodes, visited, nodesTouched];
+        return [grid, pqOfNodes, visited, nodesTouched, currentIterations+1];
     }
 }
 
