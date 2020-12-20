@@ -11,7 +11,7 @@ const HIGH_WEIGHTED_NODES_COLOR = "gray";
 const LOW_WEIGHTED_NODES_COLOR = "lightgray";
 const UNPASSABLE_NODES_COLOR = "black";
 const NO_WEIGHT_NODES_COLOR = "white";
-const legend = "Black Nodes cannot be passed and act as blockers. Darker nodes are high weighted while lighter are low weighted. 'Randomize The Maze' randomly assigns each the weight to each node in the grid."
+const LEGEND = "Black Nodes cannot be passed and act as blockers. Darker nodes are high weighted while lighter are low weighted. 'Randomize The Maze' randomly assigns each the weight to each node in the grid."
 
 
 // Pathfinder tells which algorithm we are using.
@@ -83,7 +83,9 @@ class Pathfinder extends Component {
         }
 
         this.grid.state.graph[0][0].color = 'yellow';
+        this.grid.state.graph[0][0].weight = 1;
         this.grid.state.graph[this.grid.state.numberOfRows-1][this.grid.state.numberOfColumns-1].color = "red";
+        this.grid.state.graph[this.grid.state.numberOfRows-1][this.grid.state.numberOfColumns-1].weight = 1;
         this.grid.state.currentNode = this.grid.state.graph[0][0];
         this.grid.state.startNode = this.grid.state.graph[0][0];
         this.grid.state.endNode = this.grid.state.graph[this.grid.state.numberOfRows-1][this.grid.state.numberOfColumns-1];
@@ -298,7 +300,7 @@ class Pathfinder extends Component {
                 <button><a href="https://github.com/satyam19946/visualizer">Github link</a></button>
                 <div className={styles.Description}>{this.description}</div>
                 <br />
-                {legend}
+                {LEGEND}
                 <br />
                 Current Node = ({this.grid.state.currentNode.x+1},{this.grid.state.currentNode.y+1}) Destination Node = ({this.grid.state.endNode.x+1},{this.grid.state.endNode.y+1}) Number of Iterations = {this.state.numberOfIterations}
                 <div>
