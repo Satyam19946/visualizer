@@ -1,25 +1,28 @@
-.grid { 
-    display: grid;
-    size: auto;
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-bottom: 1%;
-    margin-left: auto;
-    margin-right: auto;
-    grid-template-rows: repeat(20, 30px);
-    grid-template-columns: repeat(45, 30px);
-    position: absolute;
+.grid {
+  display: grid;
+  size: auto;
+  padding-top: 1%;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+  grid-template-rows: repeat(20, 2rem);
+  grid-template-columns: repeat(45, 2rem);
 }
 
 .Node {
-    border-style: solid;
-    border-color: black;
-    text-align: center;
-    width: 30px;
-    height: 30px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  text-align: center;
+  width: 2rem;
+  height: 2rem;
 }
 
 .Description {
-    font-size: 8;
-    font-family:'Courier New', Courier, monospace;
+  font-size: 6;
+  font-family: "Courier New", Courier, monospace;
+  padding-top: 1%;
 }

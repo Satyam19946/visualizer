@@ -97,7 +97,7 @@ class Algorithms extends Component{
         let currentNodeWeight = 1;
 
         if ( pqOfNodes.size() ){
-            currentNodeWeight = pqOfNodes.peek()[1];
+            currentNodeWeight = pqOfNodes.peek()[2];
         }
 
         visited.push(currNode);
@@ -120,7 +120,7 @@ class Algorithms extends Component{
                     let nodeToPush = grid.graph[check[0]][check[1]];
                     nodeToPush.parent = currNode;
                     var weightToDest = Math.abs(nodeToPush.x - destNode.x) + Math.abs(nodeToPush.y - destNode.y);
-                    pqOfNodes.push([nodeToPush, currentNodeWeight+nodeToPush.weight+weightToDest]);
+                    pqOfNodes.push([nodeToPush, currentNodeWeight+nodeToPush.weight+weightToDest, currentNodeWeight+nodeToPush.weight]);
                     nodesTouched.push(check[0]*grid.numberOfColumns + check[1]);
                 }
             }
