@@ -5,15 +5,14 @@ const homePage = () => {
     <div className="intro"> 
       <p>This project contains a visualization of the common algorithms that you will probably encounter in your CSE classes.</p>
       <p> This project has been written from scratch in React. (<a href="https://reactjs.org/">Learn React Here</a>)</p>
-      <p> I have used the concept of stateful classes to visualize the PathFinding Algorithms -
-        <br />
-        <ul>
-          <li> Depth First Search - Stack implementation</li>
-          <li> Breadth First Search - Queue implementation </li>
-          <li> Dijkstra (Uniform Cost Search) - Priority Queue implementation</li>
-          <li> A* - Priority Queue implementation </li>
-        </ul>
-      </p>
+      <p> I have used the concept of stateful classes to visualize the PathFinding Algorithms - </p>
+      <br />
+      <ul>
+        <li> Depth First Search - Stack implementation</li>
+        <li> Breadth First Search - Queue implementation </li>
+        <li> Dijkstra (Uniform Cost Search) - Priority Queue implementation</li>
+        <li> A* - Priority Queue implementation </li>
+      </ul>
       <br />
       <p> These are the next visualization coming up in this order. </p>
       <ol>

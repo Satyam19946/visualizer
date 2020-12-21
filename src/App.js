@@ -1,10 +1,6 @@
 import './App.css';
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import Pathfinder from './PathFinding/Pathfinder.js';
-import HomePage from './HomePage/Home.js';
 import Navbar from "./CustomNavbar/CustomNavbar.js"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import WorkInProgressPage from "./WorkInProgressPage/WorkInProgress.js";
 
 <link
   rel="stylesheet"
@@ -17,16 +13,7 @@ function App() {
   return (
     <div>
       <Navbar />
-      <BrowserRouter>
-        <Switch>
-          <Route exact path={`${process.env.PUBLIC_URL}/`} component={HomePage} />
-          <Route exact path={`${process.env.PUBLIC_URL}/Pathfinder`} component={Pathfinder}/>
-          <Route exact path={`${process.env.PUBLIC_URL}/Trees`} component={WorkInProgressPage} />
-          <Route exact path={`${process.env.PUBLIC_URL}/LinkedList`} component={WorkInProgressPage} />
-          <Route exact path={`${process.env.PUBLIC_URL}/Sorting`} component={WorkInProgressPage} />
-          <Route exact path={`${process.env.PUBLIC_URL}/Hashtables`} component={WorkInProgressPage} />
-        </Switch>
-      </BrowserRouter>
+      {console.log("From custom bar 22 ", `${process.env.PUBLIC_URL}`)}
     </div>
   );
 }
