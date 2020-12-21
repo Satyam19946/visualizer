@@ -19,12 +19,12 @@ function App() {
       <Navbar />
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/Pathfinder" component={Pathfinder}/>
-          <Route exact path="/Trees" component={WorkInProgressPage} />
-          <Route exact path="/LinkedList" component={WorkInProgressPage} />
-          <Route exact path="/Sorting" component={WorkInProgressPage} />
-          <Route exact path="/Hashtables" component={WorkInProgressPage} />
+          <Route exact path={`${process.env.PUBLIC_URL}/`} component={HomePage} />
+          <Route exact path={`${process.env.PUBLIC_URL}/Pathfinder`} component={Pathfinder}/>
+          <Route exact path={`${process.env.PUBLIC_URL}/Trees`} component={WorkInProgressPage} />
+          <Route exact path={`${process.env.PUBLIC_URL}/LinkedList`} component={WorkInProgressPage} />
+          <Route exact path={`${process.env.PUBLIC_URL}/Sorting`} component={WorkInProgressPage} />
+          <Route exact path={`${process.env.PUBLIC_URL}/Hashtables`} component={WorkInProgressPage} />
         </Switch>
       </BrowserRouter>
     </div>
