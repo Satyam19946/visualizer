@@ -1,0 +1,10 @@
+.treenode {
+  border: 2px solid black;
+  background-color: #ffffff;
+  height: 5rem;
+  border-radius: 50%;
+  width: 5rem;
+  text-shadow: pink;
+  text-align: center;
+  margin: auto;
+}
