@@ -11,7 +11,7 @@ const HIGH_WEIGHTED_NODES_COLOR = "gray";
 const LOW_WEIGHTED_NODES_COLOR = "lightgray";
 const UNPASSABLE_NODES_COLOR = "black";
 const NO_WEIGHT_NODES_COLOR = "white";
-const LEGEND = "Black Nodes cannot be passed and act as blockers. Darker nodes are high weighted while lighter are low weighted. 'Randomize The Maze' randomly assigns each the weight to each node in the grid."
+const LEGEND = "Black Nodes cannot be passed and act as blockers. Darker nodes are high weighted and avoided while lighter are low weighted and preferred. 'Randomize The Maze' randomly assigns weight to each node in the grid."
 
 
 // Pathfinder tells which algorithm we are using.

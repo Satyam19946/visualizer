@@ -16,9 +16,9 @@ const homePage = () => {
       <br />
       <p> These are the next visualization coming up in this order. </p>
       <ol>
+        <li> Sorting Algorithms </li>
         <li> Trees. (I plan to use functional components and <a href="https://reactjs.org/docs/hooks-intro.html">Hooks in React</a> to visualize the Trees.) </li>
         <li> Linked List </li>
-        <li> Sorting Algorithms </li>
         <li> Hash Tables </li>
       </ol>
     </div>
