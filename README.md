@@ -14,7 +14,7 @@ Completed -
 In Progress -
 
 - Sorting Algorithms
-  1. Bubble Sort
+  1. Bubble Sort - Bubble the largest to the end in first iteration. Bubble the second largest to the end in the second iteration and so on... untill the whole array is sorted.
   2. Merge Sort
   3. Quick Sort
 

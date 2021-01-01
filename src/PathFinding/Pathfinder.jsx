@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Algorithms from './Algorithms.js';
-import SearchGrid from './SearchGrid.js';
+import Algorithms from './Algorithms';
+import SearchGrid from './SearchGrid';
 import styles from "./SearchGrid.module.css";
 import PriorityQueue from "./PriorityQueue.js";
 import getDescription from "./Description.js";
