@@ -80,6 +80,12 @@ export default function SortingPage() {
 
   return (
     <div>
+      <p>
+        This page is currently in Production. With Classes, I will update it soon but it will take some time. Please feel free to contribute to the github branch.
+        <button>
+          <a href="https://github.com/satyam19946/visualizer">Github link</a>
+        </button>
+      </p>
       <button style={{
         marginBottom: 10,
       }}>
