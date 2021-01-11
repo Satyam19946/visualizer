@@ -3,7 +3,6 @@ import {Component} from 'react';
 // Algorithms takes an algorithm name from PathFinder and the Grid from SearchGrid to execute the specified the algorithm
 class Algorithms extends Component{
     
-
     changeColorToOrange(item){
         item.color = 'orange';
     }

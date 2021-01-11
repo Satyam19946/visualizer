@@ -13,6 +13,13 @@ Completed -
 
 In Progress -
 
+- Sorting Algorithms
+  1. Bubble Sort - Bubble the largest to the end in first iteration. Bubble the second largest to the end in the second iteration and so on... untill the whole array is sorted.
+  2. Merge Sort
+  3. Quick Sort
+
+Pushed Trees for later (need help on css)
+
 - Trees
   1. Binary Search Trees
   2. Tree Traversals and their uses (w/ Leetcode Problems)
@@ -24,5 +31,4 @@ In Progress -
 Planned -
 
 - Linked List
-- Sorting Algorithms
 - Hash Maps
